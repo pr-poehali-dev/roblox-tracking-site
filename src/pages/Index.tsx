@@ -36,7 +36,7 @@ const Index = () => {
       location: 'frozen soul (dg)',
       accountAge: '2 years 4 months',
       totalGames: 156,
-      favoriteGames: ['frozen soul (dg)', 'Arsenal', 'Brookhaven RP', 'Adopt Me!'],
+      favoriteGames: ['frozen soul (dg)', 'Block tales', 'Grace', 'BIAST'],
       averagePlaytime: '3h 24m/day',
       friendsCount: 47
     }
@@ -105,8 +105,8 @@ const Index = () => {
               { time: '3h ago', action: 'serehka111 went offline', type: 'leave' },
               { time: '3h ago', action: 'serehka111 left frozen soul (dg)', type: 'leave' },
               { time: '5h ago', action: 'serehka111 joined frozen soul (dg)', type: 'join' },
-              { time: '8h ago', action: 'serehka111 left Arsenal', type: 'leave' },
-              { time: '9h ago', action: 'serehka111 joined Arsenal', type: 'join' }
+              { time: '8h ago', action: 'serehka111 left Block tales', type: 'leave' },
+              { time: '9h ago', action: 'serehka111 joined Block tales', type: 'join' }
             ].map((activity, i) => (
               <div key={i} className="flex items-center justify-between py-2 border-b border-border last:border-0">
                 <div className="flex items-center gap-3">
@@ -127,9 +127,9 @@ const Index = () => {
           <div className="space-y-3">
             {[
               { game: 'frozen soul (dg)', hours: 124, percentage: 85 },
-              { game: 'Arsenal', hours: 89, percentage: 61 },
-              { game: 'Brookhaven RP', hours: 67, percentage: 46 },
-              { game: 'Adopt Me!', hours: 43, percentage: 29 }
+              { game: 'Block tales', hours: 89, percentage: 61 },
+              { game: 'Grace', hours: 67, percentage: 46 },
+              { game: 'BIAST', hours: 43, percentage: 29 }
             ].map((item, i) => (
               <div key={i} className="space-y-2">
                 <div className="flex items-center justify-between text-sm">
