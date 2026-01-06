@@ -14,6 +14,11 @@ interface Player {
   lastSeen: string;
   gameTime: string;
   location: string;
+  accountAge: string;
+  totalGames: number;
+  favoriteGames: string[];
+  averagePlaytime: string;
+  friendsCount: number;
 }
 
 const Index = () => {
@@ -28,7 +33,12 @@ const Index = () => {
       status: 'offline',
       lastSeen: '3 hours ago',
       gameTime: '0m',
-      location: 'frozen soul (dg)'
+      location: 'frozen soul (dg)',
+      accountAge: '2 years 4 months',
+      totalGames: 156,
+      favoriteGames: ['frozen soul (dg)', 'Arsenal', 'Brookhaven RP', 'Adopt Me!'],
+      averagePlaytime: '3h 24m/day',
+      friendsCount: 47
     }
   ];
 
@@ -84,27 +94,59 @@ const Index = () => {
         </Card>
       </div>
 
-      <Card className="p-6 bg-card border-border">
-        <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-          <Icon name="Clock" size={20} className="text-primary" />
-          Recent Activity
-        </h3>
-        <div className="space-y-3">
-          {[
-            { time: '3h ago', action: 'serehka111 went offline', type: 'leave' },
-            { time: '3h ago', action: 'serehka111 left frozen soul (dg)', type: 'leave' },
-            { time: '5h ago', action: 'serehka111 joined frozen soul (dg)', type: 'join' }
-          ].map((activity, i) => (
-            <div key={i} className="flex items-center justify-between py-2 border-b border-border last:border-0">
-              <div className="flex items-center gap-3">
-                <div className={`w-2 h-2 rounded-full ${activity.type === 'join' ? 'bg-green-500' : 'bg-orange-500'}`} />
-                <span className="text-sm">{activity.action}</span>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <Card className="p-6 bg-card border-border">
+          <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+            <Icon name="Clock" size={20} className="text-primary" />
+            Recent Activity
+          </h3>
+          <div className="space-y-3">
+            {[
+              { time: '3h ago', action: 'serehka111 went offline', type: 'leave' },
+              { time: '3h ago', action: 'serehka111 left frozen soul (dg)', type: 'leave' },
+              { time: '5h ago', action: 'serehka111 joined frozen soul (dg)', type: 'join' },
+              { time: '8h ago', action: 'serehka111 left Arsenal', type: 'leave' },
+              { time: '9h ago', action: 'serehka111 joined Arsenal', type: 'join' }
+            ].map((activity, i) => (
+              <div key={i} className="flex items-center justify-between py-2 border-b border-border last:border-0">
+                <div className="flex items-center gap-3">
+                  <div className={`w-2 h-2 rounded-full ${activity.type === 'join' ? 'bg-green-500' : 'bg-orange-500'}`} />
+                  <span className="text-sm">{activity.action}</span>
+                </div>
+                <span className="text-xs text-muted-foreground">{activity.time}</span>
               </div>
-              <span className="text-xs text-muted-foreground">{activity.time}</span>
-            </div>
-          ))}
-        </div>
-      </Card>
+            ))}
+          </div>
+        </Card>
+
+        <Card className="p-6 bg-card border-border">
+          <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+            <Icon name="Gamepad2" size={20} className="text-primary" />
+            Top Games Played
+          </h3>
+          <div className="space-y-3">
+            {[
+              { game: 'frozen soul (dg)', hours: 124, percentage: 85 },
+              { game: 'Arsenal', hours: 89, percentage: 61 },
+              { game: 'Brookhaven RP', hours: 67, percentage: 46 },
+              { game: 'Adopt Me!', hours: 43, percentage: 29 }
+            ].map((item, i) => (
+              <div key={i} className="space-y-2">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="font-medium">{item.game}</span>
+                  <span className="text-muted-foreground">{item.hours}h</span>
+                </div>
+                <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
+                  <div 
+                    className="h-full bg-primary transition-all duration-300"
+                    style={{ width: `${item.percentage}%` }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </Card>
+      </div>
     </div>
   );
 
@@ -150,34 +192,69 @@ const Index = () => {
 
       <div className="grid gap-4">
         {filteredPlayers.map((player) => (
-          <Card key={player.id} className="p-6 bg-card border-border hover:border-primary/50 transition-all">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
-                  <Icon name="User" size={24} className="text-primary" />
-                </div>
-                <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <h3 className="font-semibold text-lg">{player.username}</h3>
-                    <Badge variant="secondary" className="bg-red-500/20 text-red-400">
-                      {player.status}
-                    </Badge>
+          <div key={player.id} className="space-y-4">
+            <Card className="p-6 bg-card border-border hover:border-primary/50 transition-all">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center">
+                    <Icon name="User" size={32} className="text-primary" />
                   </div>
-                  <p className="text-sm text-muted-foreground">Last seen: {player.lastSeen}</p>
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className="font-semibold text-xl">{player.username}</h3>
+                      <Badge variant="secondary" className="bg-red-500/20 text-red-400">
+                        {player.status}
+                      </Badge>
+                    </div>
+                    <p className="text-sm text-muted-foreground">Last seen: {player.lastSeen}</p>
+                    <p className="text-xs text-muted-foreground mt-1">Account age: {player.accountAge}</p>
+                  </div>
+                </div>
+                <div className="text-right space-y-1">
+                  <div className="flex items-center gap-2 text-sm">
+                    <Icon name="Clock" size={14} className="text-muted-foreground" />
+                    <span>{player.averagePlaytime}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <Icon name="MapPin" size={14} />
+                    <span>{player.location}</span>
+                  </div>
                 </div>
               </div>
-              <div className="text-right space-y-1">
-                <div className="flex items-center gap-2 text-sm">
-                  <Icon name="Clock" size={14} className="text-muted-foreground" />
-                  <span>{player.gameTime}</span>
+
+              <div className="grid grid-cols-3 gap-4 pt-4 border-t border-border">
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-primary">{player.totalGames}</p>
+                  <p className="text-xs text-muted-foreground mt-1">Games Played</p>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Icon name="MapPin" size={14} />
-                  <span>{player.location}</span>
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-primary">{player.friendsCount}</p>
+                  <p className="text-xs text-muted-foreground mt-1">Friends</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-primary">47</p>
+                  <p className="text-xs text-muted-foreground mt-1">Sessions</p>
                 </div>
               </div>
-            </div>
-          </Card>
+            </Card>
+
+            <Card className="p-6 bg-card border-border">
+              <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                <Icon name="Star" size={20} className="text-primary" />
+                Favorite Games
+              </h3>
+              <div className="grid grid-cols-2 gap-3">
+                {player.favoriteGames.map((game, i) => (
+                  <div key={i} className="flex items-center gap-2 p-3 bg-muted/30 rounded-lg">
+                    <div className="w-8 h-8 rounded bg-primary/20 flex items-center justify-center flex-shrink-0">
+                      <Icon name="Gamepad2" size={16} className="text-primary" />
+                    </div>
+                    <span className="text-sm font-medium truncate">{game}</span>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          </div>
         ))}
       </div>
     </div>
