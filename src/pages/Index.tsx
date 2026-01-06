@@ -34,11 +34,11 @@ const Index = () => {
       lastSeen: '3 hours ago',
       gameTime: '0m',
       location: 'frozen soul (dg)',
-      accountAge: '2 years 4 months',
+      accountAge: '6 years 4 months',
       totalGames: 156,
       favoriteGames: ['frozen soul (dg)', 'Block tales', 'Grace', 'BIAST'],
       averagePlaytime: '3h 24m/day',
-      friendsCount: 47
+      friendsCount: 0
     }
   ];
 
@@ -56,6 +56,21 @@ const Index = () => {
 
   const renderDashboard = () => (
     <div className="space-y-6">
+      <div className="bg-gradient-to-r from-primary/10 via-purple-500/10 to-primary/10 border border-primary/20 rounded-lg p-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center animate-pulse">
+            <Icon name="Radio" size={20} className="text-primary" />
+          </div>
+          <div>
+            <p className="font-semibold">ROBLOX Monitoring Active</p>
+            <p className="text-xs text-muted-foreground">Real-time player tracking enabled</p>
+          </div>
+        </div>
+        <Badge variant="outline" className="gap-2 bg-primary/10">
+          <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+          LIVE
+        </Badge>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card className="p-6 bg-card border-border hover:border-primary/50 transition-all">
           <div className="flex items-center justify-between">
@@ -93,6 +108,43 @@ const Index = () => {
           </div>
         </Card>
       </div>
+
+      <Card className="p-6 bg-card border-border">
+        <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+          <Icon name="TrendingUp" size={20} className="text-primary" />
+          Player Statistics
+        </h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="p-3 bg-muted/30 rounded-lg">
+            <div className="flex items-center gap-2 mb-2">
+              <Icon name="Trophy" size={16} className="text-yellow-500" />
+              <p className="text-xs text-muted-foreground">Level</p>
+            </div>
+            <p className="text-2xl font-bold">127</p>
+          </div>
+          <div className="p-3 bg-muted/30 rounded-lg">
+            <div className="flex items-center gap-2 mb-2">
+              <Icon name="Zap" size={16} className="text-orange-500" />
+              <p className="text-xs text-muted-foreground">Robux Spent</p>
+            </div>
+            <p className="text-2xl font-bold">2.4K</p>
+          </div>
+          <div className="p-3 bg-muted/30 rounded-lg">
+            <div className="flex items-center gap-2 mb-2">
+              <Icon name="Award" size={16} className="text-purple-500" />
+              <p className="text-xs text-muted-foreground">Badges</p>
+            </div>
+            <p className="text-2xl font-bold">89</p>
+          </div>
+          <div className="p-3 bg-muted/30 rounded-lg">
+            <div className="flex items-center gap-2 mb-2">
+              <Icon name="Target" size={16} className="text-green-500" />
+              <p className="text-xs text-muted-foreground">Achievements</p>
+            </div>
+            <p className="text-2xl font-bold">156</p>
+          </div>
+        </div>
+      </Card>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <Card className="p-6 bg-card border-border">
@@ -224,8 +276,8 @@ const Index = () => {
 
               <div className="grid grid-cols-3 gap-4 pt-4 border-t border-border">
                 <div className="text-center">
-                  <p className="text-2xl font-bold text-primary">{player.totalGames}</p>
-                  <p className="text-xs text-muted-foreground mt-1">Games Played</p>
+                  <p className="text-lg font-bold text-primary font-mono">124+89+67+43</p>
+                  <p className="text-xs text-muted-foreground mt-1">Games Played (calc)</p>
                 </div>
                 <div className="text-center">
                   <p className="text-2xl font-bold text-primary">{player.friendsCount}</p>
@@ -238,22 +290,66 @@ const Index = () => {
               </div>
             </Card>
 
-            <Card className="p-6 bg-card border-border">
-              <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                <Icon name="Star" size={20} className="text-primary" />
-                Favorite Games
-              </h3>
-              <div className="grid grid-cols-2 gap-3">
-                {player.favoriteGames.map((game, i) => (
-                  <div key={i} className="flex items-center gap-2 p-3 bg-muted/30 rounded-lg">
-                    <div className="w-8 h-8 rounded bg-primary/20 flex items-center justify-center flex-shrink-0">
-                      <Icon name="Gamepad2" size={16} className="text-primary" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Card className="p-6 bg-card border-border">
+                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                  <Icon name="Star" size={20} className="text-primary" />
+                  Favorite Games
+                </h3>
+                <div className="space-y-3">
+                  {player.favoriteGames.map((game, i) => (
+                    <div key={i} className="flex items-center justify-between p-3 bg-muted/30 rounded-lg hover:bg-muted/50 transition-all">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 rounded bg-primary/20 flex items-center justify-center flex-shrink-0">
+                          <Icon name="Gamepad2" size={16} className="text-primary" />
+                        </div>
+                        <span className="text-sm font-medium">{game}</span>
+                      </div>
+                      <Badge variant="outline" className="text-xs">
+                        ⭐ {4 - i}/5
+                      </Badge>
                     </div>
-                    <span className="text-sm font-medium truncate">{game}</span>
+                  ))}
+                </div>
+              </Card>
+
+              <Card className="p-6 bg-card border-border">
+                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                  <Icon name="ShoppingBag" size={20} className="text-primary" />
+                  ROBLOX Inventory
+                </h3>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
+                    <div className="flex items-center gap-2">
+                      <Icon name="Shirt" size={16} className="text-blue-500" />
+                      <span className="text-sm">Clothing Items</span>
+                    </div>
+                    <span className="font-bold">234</span>
                   </div>
-                ))}
-              </div>
-            </Card>
+                  <div className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
+                    <div className="flex items-center gap-2">
+                      <Icon name="Sparkles" size={16} className="text-purple-500" />
+                      <span className="text-sm">Accessories</span>
+                    </div>
+                    <span className="font-bold">89</span>
+                  </div>
+                  <div className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
+                    <div className="flex items-center gap-2">
+                      <Icon name="Package" size={16} className="text-orange-500" />
+                      <span className="text-sm">Game Passes</span>
+                    </div>
+                    <span className="font-bold">12</span>
+                  </div>
+                  <div className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
+                    <div className="flex items-center gap-2">
+                      <Icon name="Gem" size={16} className="text-cyan-500" />
+                      <span className="text-sm">Limited Items</span>
+                    </div>
+                    <span className="font-bold">7</span>
+                  </div>
+                </div>
+              </Card>
+            </div>
           </div>
         ))}
       </div>
