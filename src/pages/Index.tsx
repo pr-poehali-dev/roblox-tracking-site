@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 
-type Tab = 'dashboard' | 'players' | 'activity';
+type Tab = 'dashboard' | 'players' | 'activity' | 'camera';
 
 interface Player {
   id: string;
@@ -25,10 +25,10 @@ const Index = () => {
     {
       id: '1',
       username: 'serehka111',
-      status: 'online',
-      lastSeen: 'Now',
-      gameTime: '2h 34m',
-      location: 'Brookhaven RP'
+      status: 'offline',
+      lastSeen: '3 hours ago',
+      gameTime: '0m',
+      location: 'Not in game'
     }
   ];
 
@@ -63,10 +63,10 @@ const Index = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-muted-foreground uppercase tracking-wider">Online Now</p>
-              <p className="text-3xl font-bold mt-2">1</p>
+              <p className="text-3xl font-bold mt-2">0</p>
             </div>
-            <div className="w-12 h-12 rounded-lg bg-green-500/10 flex items-center justify-center">
-              <Icon name="Activity" size={24} className="text-green-500" />
+            <div className="w-12 h-12 rounded-lg bg-red-500/10 flex items-center justify-center">
+              <Icon name="Activity" size={24} className="text-red-500" />
             </div>
           </div>
         </Card>
@@ -91,9 +91,9 @@ const Index = () => {
         </h3>
         <div className="space-y-3">
           {[
-            { time: '2m ago', action: 'serehka111 joined Brookhaven RP', type: 'join' },
-            { time: '1h ago', action: 'serehka111 left Arsenal', type: 'leave' },
-            { time: '3h ago', action: 'serehka111 joined Arsenal', type: 'join' }
+            { time: '3h ago', action: 'serehka111 went offline', type: 'leave' },
+            { time: '5h ago', action: 'serehka111 left Brookhaven RP', type: 'leave' },
+            { time: '7h ago', action: 'serehka111 joined Brookhaven RP', type: 'join' }
           ].map((activity, i) => (
             <div key={i} className="flex items-center justify-between py-2 border-b border-border last:border-0">
               <div className="flex items-center gap-3">
@@ -159,7 +159,7 @@ const Index = () => {
                 <div>
                   <div className="flex items-center gap-2 mb-1">
                     <h3 className="font-semibold text-lg">{player.username}</h3>
-                    <Badge variant={player.status === 'online' ? 'default' : 'secondary'} className={player.status === 'online' ? 'bg-green-500' : ''}>
+                    <Badge variant="secondary" className="bg-red-500/20 text-red-400">
                       {player.status}
                     </Badge>
                   </div>
@@ -180,6 +180,77 @@ const Index = () => {
           </Card>
         ))}
       </div>
+    </div>
+  );
+
+  const renderCamera = () => (
+    <div className="space-y-6">
+      <Card className="p-6 bg-card border-border">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold flex items-center gap-2">
+            <Icon name="Video" size={20} className="text-primary" />
+            Live Camera Feed
+          </h3>
+          <Badge variant="secondary" className="bg-red-500/20 text-red-400 gap-2">
+            <div className="w-2 h-2 rounded-full bg-red-500" />
+            OFFLINE
+          </Badge>
+        </div>
+        
+        <div className="aspect-video bg-muted/30 rounded-lg border-2 border-dashed border-border flex items-center justify-center relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-background/50 to-muted/50" />
+          <div className="relative text-center space-y-3">
+            <Icon name="VideoOff" size={48} className="text-muted-foreground mx-auto" />
+            <div>
+              <p className="text-lg font-semibold text-muted-foreground">Camera Feed Unavailable</p>
+              <p className="text-sm text-muted-foreground/70 mt-1">Target is not in any game</p>
+            </div>
+          </div>
+          
+          <div className="absolute top-4 left-4 flex items-center gap-2 bg-background/80 backdrop-blur-sm px-3 py-1.5 rounded">
+            <Icon name="User" size={14} className="text-muted-foreground" />
+            <span className="text-xs font-mono">serehka111</span>
+          </div>
+          
+          <div className="absolute bottom-4 right-4 text-xs font-mono text-muted-foreground bg-background/80 backdrop-blur-sm px-2 py-1 rounded">
+            {new Date().toLocaleTimeString()}
+          </div>
+        </div>
+        
+        <div className="mt-4 grid grid-cols-2 gap-4">
+          <div className="flex items-center gap-2 text-sm">
+            <Icon name="User" size={16} className="text-muted-foreground" />
+            <span className="text-muted-foreground">Target:</span>
+            <span className="font-semibold">serehka111</span>
+          </div>
+          <div className="flex items-center gap-2 text-sm">
+            <Icon name="MapPin" size={16} className="text-muted-foreground" />
+            <span className="text-muted-foreground">Location:</span>
+            <span className="font-semibold">Not in game</span>
+          </div>
+          <div className="flex items-center gap-2 text-sm">
+            <Icon name="Signal" size={16} className="text-muted-foreground" />
+            <span className="text-muted-foreground">Status:</span>
+            <span className="font-semibold text-red-400">Offline</span>
+          </div>
+          <div className="flex items-center gap-2 text-sm">
+            <Icon name="Clock" size={16} className="text-muted-foreground" />
+            <span className="text-muted-foreground">Last seen:</span>
+            <span className="font-semibold">3 hours ago</span>
+          </div>
+        </div>
+      </Card>
+
+      <Card className="p-6 bg-card border-border">
+        <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+          <Icon name="AlertCircle" size={20} className="text-orange-500" />
+          Camera Notice
+        </h3>
+        <p className="text-sm text-muted-foreground">
+          Live camera feed is only available when the target is actively playing a Roblox game. 
+          The system will automatically resume monitoring once serehka111 joins any game.
+        </p>
+      </Card>
     </div>
   );
 
@@ -245,6 +316,14 @@ const Index = () => {
             Players
           </Button>
           <Button
+            variant={activeTab === 'camera' ? 'default' : 'ghost'}
+            onClick={() => setActiveTab('camera')}
+            className="rounded-b-none"
+          >
+            <Icon name="Video" size={18} className="mr-2" />
+            Camera
+          </Button>
+          <Button
             variant={activeTab === 'activity' ? 'default' : 'ghost'}
             onClick={() => setActiveTab('activity')}
             className="rounded-b-none"
@@ -256,6 +335,7 @@ const Index = () => {
 
         {activeTab === 'dashboard' && renderDashboard()}
         {activeTab === 'players' && renderPlayers()}
+        {activeTab === 'camera' && renderCamera()}
         {activeTab === 'activity' && renderActivity()}
       </div>
     </div>
