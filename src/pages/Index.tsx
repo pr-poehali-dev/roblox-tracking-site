@@ -117,10 +117,10 @@ const Index = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="p-3 bg-muted/30 rounded-lg">
             <div className="flex items-center gap-2 mb-2">
-              <Icon name="Trophy" size={16} className="text-yellow-500" />
-              <p className="text-xs text-muted-foreground">Level</p>
+              <Icon name="Youtube" size={16} className="text-red-500" />
+              <p className="text-xs text-muted-foreground">Channel</p>
             </div>
-            <p className="text-2xl font-bold">127</p>
+            <p className="text-sm font-bold">Som3onElse1_1</p>
           </div>
           <div className="p-3 bg-muted/30 rounded-lg">
             <div className="flex items-center gap-2 mb-2">
@@ -449,13 +449,29 @@ const Index = () => {
   );
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      <div className="fixed inset-0 opacity-5 pointer-events-none">
+        <div className="absolute top-10 left-10 text-6xl">🎮</div>
+        <div className="absolute top-20 right-20 text-5xl">⚔️</div>
+        <div className="absolute bottom-20 left-20 text-5xl">🏰</div>
+        <div className="absolute bottom-32 right-32 text-4xl">👾</div>
+        <div className="absolute top-1/3 left-1/4 text-4xl">🎯</div>
+        <div className="absolute top-1/2 right-1/4 text-5xl">🌟</div>
+        <div className="absolute bottom-1/3 left-1/3 text-4xl">💎</div>
+        <div className="absolute top-2/3 right-1/3 text-5xl">🛡️</div>
+        <div className="absolute top-40 left-1/2 text-4xl">🎪</div>
+        <div className="absolute bottom-40 right-1/2 text-4xl">🏆</div>
+      </div>
+      
+      <div className="fixed inset-0 bg-gradient-to-br from-primary/5 via-purple-500/5 to-background pointer-events-none" />
+      
+      <div className="relative z-10">
       <div className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
-                <Icon name="Eye" size={24} className="text-primary-foreground" />
+                <span className="text-2xl">🔲</span>
               </div>
               <div>
                 <h1 className="text-xl font-bold">ROBLOX TRACKER</h1>
@@ -510,6 +526,7 @@ const Index = () => {
         {activeTab === 'players' && renderPlayers()}
         {activeTab === 'camera' && renderCamera()}
         {activeTab === 'activity' && renderActivity()}
+      </div>
       </div>
     </div>
   );
