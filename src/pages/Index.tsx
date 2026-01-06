@@ -28,7 +28,7 @@ const Index = () => {
       status: 'offline',
       lastSeen: '3 hours ago',
       gameTime: '0m',
-      location: 'Not in game'
+      location: 'frozen soul (dg)'
     }
   ];
 
@@ -92,8 +92,8 @@ const Index = () => {
         <div className="space-y-3">
           {[
             { time: '3h ago', action: 'serehka111 went offline', type: 'leave' },
-            { time: '5h ago', action: 'serehka111 left Brookhaven RP', type: 'leave' },
-            { time: '7h ago', action: 'serehka111 joined Brookhaven RP', type: 'join' }
+            { time: '3h ago', action: 'serehka111 left frozen soul (dg)', type: 'leave' },
+            { time: '5h ago', action: 'serehka111 joined frozen soul (dg)', type: 'join' }
           ].map((activity, i) => (
             <div key={i} className="flex items-center justify-between py-2 border-b border-border last:border-0">
               <div className="flex items-center gap-3">
@@ -225,8 +225,8 @@ const Index = () => {
           </div>
           <div className="flex items-center gap-2 text-sm">
             <Icon name="MapPin" size={16} className="text-muted-foreground" />
-            <span className="text-muted-foreground">Location:</span>
-            <span className="font-semibold">Not in game</span>
+            <span className="text-muted-foreground">Last game:</span>
+            <span className="font-semibold">frozen soul (dg)</span>
           </div>
           <div className="flex items-center gap-2 text-sm">
             <Icon name="Signal" size={16} className="text-muted-foreground" />
